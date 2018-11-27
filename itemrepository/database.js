@@ -48,7 +48,7 @@ function getClient() {
 }
 
 var client = getClient();
-client.connect((err) => {
+setTimeout(() => client.connect((err) => {
     if (err) {
         console.log('failed to connect to postgres!');
     } else {
@@ -62,4 +62,4 @@ client.connect((err) => {
             client.end();
         });
     }
-});
+}), 2000);
