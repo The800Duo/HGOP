@@ -23,7 +23,7 @@ echo "This scripts checks the required programs and dependencies"
 if [[ $os == "Darwin" ]]; then
     printf "Operating System: "
     uname -srm | tee -a ./log.txt
-elif [[$os == 'linux-gnu']]; then
+elif [[ $os == "Linux" ]]; then
     printf "Operating System: "
     uname -srm | tee -a ./log.txt
 else
