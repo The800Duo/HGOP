@@ -1,9 +1,0 @@
-----------Initialzing txt file for output----------
-Welcome, arnimagnusson
-This scripts checks the required programs and dependencies
-Operating system:  Darwin 18.0.0 x86_64
-git:  git version 2.17.1 (Apple Git-112)
-npm:  6.4.1
-node:  v10.11.0
-Script started: Tue Nov 27 11:44:23 GMT 2018
-Script ended: Tue Nov 27 11:44:24 GMT 2018
