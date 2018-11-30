@@ -94,3 +94,6 @@ Thumbs.db
 .terraform/
 terraform.tfstate
 terraform.tfstate.backup
+
+#logfile
+log.txt
