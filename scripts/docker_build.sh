@@ -3,6 +3,6 @@
 GIT_COMMIT=$1
 
 cd itemrepository
-docker build -t The800Duo/HGOP:$GIT_COMMIT .
+docker build -t arnimegg/hgop:$GIT_COMMIT .
 
 #TODO
