@@ -29,31 +29,44 @@ module.exports = (deck, dealer) => {
         },
         // The highest score the cards can yield without going over 21 (integer).
         getCardsValue: (game) => {
-            // TODO
+            let value = 0;
+            game.state.cards.sort(function (a, b) {return a-b;});
+            console.log(game.state.cards);
+            for(let i = 0; i < game.state.cards.length; i++){
+                let c = game.state.cards[i].slice(0, -1);
+                if(royal(c)){
+                    value += 10;
+                }else if(ace(c)){
+                    value += 11;
+                    if(value > 21) {
+                        value -= 10;
+                    }
+                }else {
+                value += Number(c);
+                }
+            }
+            return value;
         },
         // The value of the card that should exceed 21 if it exists (integer or undefined).
         getCardValue: (game) => {
-            // TODO
+            //TODO
         },
         // The cards value + the card value if it exits (integer).
         getTotal: (game) => {
-            g// TODO
+            //TODO
         },
         // The player's cards (array of strings).
         getCards: (game) => {
             return game.state.cards;
-            /*for(let i = 0; i < game.state.cards.length; i++) {
-
-            }*/
         },
         // The player's card (string or undefined).
         getCard: (game) => {
-            // TODO
+            return game.state.card;
         },
         // Player action (void).
         guess21OrUnder: (game) => {
-            let card2 = dealer.draw(deck);
-            game.state.cards.push(card2);
+            let newCard = dealer.draw(deck);
+            game.state.cards.push(newCard);
         },
         // Player action (void).
         guessOver21: (game) => {
@@ -61,3 +74,17 @@ module.exports = (deck, dealer) => {
         },
     };
 };
+
+function royal(card) {
+    if(Number(card > 10)) {
+        return true;
+    }
+    return false;
+}
+
+function ace(card) {
+    if(Number(card) === 1) {
+        return true;
+    }
+    return false;
+}
