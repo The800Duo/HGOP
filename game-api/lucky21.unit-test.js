@@ -35,3 +35,7 @@ test('guess21OrUnder should draw the next card', () => {
   expect(game.state.cards.length).toEqual(3);
   expect(game.state.cards[2]).toEqual('01D');
 });
+
+test('Test that game is not over', () => {
+    expect(game.isGameOver(game)).toEqual(false);
+});

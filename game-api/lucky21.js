@@ -20,7 +20,7 @@ module.exports = (deck, dealer) => {
         // Is the game over (true or false).
         // Is the game finished.
         isGameOver: (game) => {
-            // TODO
+            return false;
         },
         // Has the player won (true or false).
         playerWon: (game) => {
