@@ -31,7 +31,6 @@ module.exports = (deck, dealer) => {
         getCardsValue: (game) => {
             let value = 0;
             game.state.cards.sort(function (a, b) {return a-b;});
-            console.log(game.state.cards);
             for(let i = 0; i < game.state.cards.length; i++){
                 let c = game.state.cards[i].slice(0, -1);
                 if(royal(c)){
@@ -70,7 +69,7 @@ module.exports = (deck, dealer) => {
         },
         // Player action (void).
         guessOver21: (game) => {
-            // TODO
+            game.state.card = dealer.draw(game.state.deck);
         },
     };
 };

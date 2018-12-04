@@ -103,6 +103,11 @@ test('Test that game is not over', () => {
     expect(game.isGameOver(game)).toEqual(false);
 });
 
-
-
+test('that guessOver draws next card and sets as player card', () => {
+    deck = [ '7C', '3S', '1H', '4D' ];
+    dealer.shuffle = (deck) => {};
+    game = lucky21Constructor(deck, dealer);
+    game.guessOver21(game);
+    expect(game.getCard(game)).toEqual('3S');
+});
 
