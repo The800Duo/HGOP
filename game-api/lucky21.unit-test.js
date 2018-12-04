@@ -51,7 +51,6 @@ test('that players hand is 10C, 5H, 2D', () => {
 });
 
 test('that a player gets a card with undefined value', () => {
-    console.log(game.state.deck.length);
     expect(game.getCard(game)).toEqual(undefined);
 });
 
@@ -63,9 +62,47 @@ test('that a player gets a card with value 03H', () => {
     expect(game.getCard(game)).toEqual('03H');
 });
 
+test('that a royal card returns 10', () => {
+    deck = [ '13H' , '4D'];
+    game = lucky21Constructor(deck, dealer);
+    expect(game.getCardsValue(game)).toEqual(14);
+});
+
+test('that a sum of all numbers is correct', () => {
+    deck = [ '3H' , '4D', '5C', '2S', '5H'];
+    game = lucky21Constructor(deck, dealer);
+    game.guess21OrUnder(game);
+    game.guess21OrUnder(game);
+    game.guess21OrUnder(game);
+    expect(game.getCardsValue(game)).toEqual(19);
+});
+
+test('that a Ace is of value 11 when totalValue is <= 21', () => {
+  deck = [ '1C', '2S', '5H' ];
+  game = lucky21Constructor(deck, dealer);
+  game.guess21OrUnder(game);
+  expect(game.getCardsValue(game)).toEqual(18);
+});
+
+test('that a Ace is of value 1 when total would be over 21', () => {
+  deck = [ '1C', '12S', '4H' ];
+  game = lucky21Constructor(deck, dealer);
+  game.guess21OrUnder(game);
+  expect(game.getCardsValue(game)).toEqual(15);
+});
+
+test('that a edge case of all aces returns 14', () => {
+  deck = [ '1C', '1S', '1H', '1D' ];
+  game = lucky21Constructor(deck, dealer);
+  game.guess21OrUnder(game);
+  game.guess21OrUnder(game);
+  expect(game.getCardsValue(game)).toEqual(14);
+})
+
 test('Test that game is not over', () => {
     expect(game.isGameOver(game)).toEqual(false);
 });
+
 
 
 
