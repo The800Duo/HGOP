@@ -36,6 +36,18 @@ test('guess21OrUnder should draw the next card', () => {
   expect(game.state.cards[2]).toEqual('01D');
 });
 
+test('Test that a player card is a 10C', () => {
+    game.state.cards = [ '10C' ];
+    expect(game.getCards(game)).toEqual([ "10C" ]);
+});
+
+test('Test that players hand is 10C, 5H, 2D', () => {
+    game.state.cards = [ '10C', '5H', '2D' ]
+    expect(game.getCards(game)).toEqual([ '10C', '5H', '2D' ]);
+});
+
 test('Test that game is not over', () => {
     expect(game.isGameOver(game)).toEqual(false);
 });
+
+

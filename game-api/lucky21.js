@@ -20,7 +20,8 @@ module.exports = (deck, dealer) => {
         // Is the game over (true or false).
         // Is the game finished.
         isGameOver: (game) => {
-            return false;
+            return game.getTotal > 21 
+            
         },
         // Has the player won (true or false).
         playerWon: (game) => {
@@ -36,11 +37,14 @@ module.exports = (deck, dealer) => {
         },
         // The cards value + the card value if it exits (integer).
         getTotal: (game) => {
-            // TODO
+            g// TODO
         },
         // The player's cards (array of strings).
         getCards: (game) => {
-            // TODO
+            return game.state.cards;
+            /*for(let i = 0; i < game.state.cards.length; i++) {
+
+            }*/
         },
         // The player's card (string or undefined).
         getCard: (game) => {
