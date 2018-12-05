@@ -20,8 +20,10 @@ module.exports = (deck, dealer) => {
         // Is the game over (true or false).
         // Is the game finished.
         isGameOver: (game) => {
-            return game.getTotal > 21 
-            
+            if(game.state.card || game.getTotal(game) >= 21) {
+                return true;
+            }
+            return false;
         },
         // Has the player won (true or false).
         playerWon: (game) => {
