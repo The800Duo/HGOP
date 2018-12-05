@@ -31,7 +31,6 @@ module.exports = (deck, dealer) => {
         getCardsValue: (game) => {
             let value = 0;
             game.state.cards.sort(function (a, b) {return a-b;});
-            console.log(game.state.cards);
             for(let i = 0; i < game.state.cards.length; i++){
                 let c = game.state.cards[i].slice(0, -1);
                 if(royal(c)){
@@ -49,7 +48,22 @@ module.exports = (deck, dealer) => {
         },
         // The value of the card that should exceed 21 if it exists (integer or undefined).
         getCardValue: (game) => {
-            //TODO
+            if(game.state.card) {
+                let currCard = game.state.card.slice(0,-1);
+                let cardValue = Number(currCard);
+                console.log(currCard);
+                if(royal(currCard)) {
+                    cardValue = 10;
+                }
+                if(ace(currCard)) {
+                    cardValue = 11;
+                }
+                let currTotal = game.getCardsValue(game) + cardValue;
+                if(currTotal > 21) {
+                    return cardValue;
+                }
+            }
+            return game.state.card;
         },
         // The cards value + the card value if it exits (integer).
         getTotal: (game) => {
@@ -70,13 +84,13 @@ module.exports = (deck, dealer) => {
         },
         // Player action (void).
         guessOver21: (game) => {
-            // TODO
+            game.state.card = dealer.draw(game.state.deck);
         },
     };
 };
 
 function royal(card) {
-    if(Number(card > 10)) {
+    if(Number(card) > 10) {
         return true;
     }
     return false;

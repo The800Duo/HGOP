@@ -103,6 +103,34 @@ test('Test that game is not over', () => {
     expect(game.isGameOver(game)).toEqual(false);
 });
 
+test('that guessOver draws next card and sets as player card', () => {
+    deck = [ '7C', '3S', '1H', '4D' ];
+    dealer.shuffle = (deck) => {};
+    game = lucky21Constructor(deck, dealer);
+    game.guessOver21(game);
+    expect(game.getCard(game)).toEqual('3S');
+});
 
+test('should return 10 when value exceeds 21', () => {
+    deck = [ '2C', '11S', '7H', '9D' ];
+    dealer.shuffle = (deck) => {};
+    game = lucky21Constructor(deck, dealer);
+    game.guessOver21(game);
+    expect(game.getCardValue(game)).toEqual(10);
+});
 
+test('should return 11 when value exceeds 21 and card is ace', () => {
+    deck = [ '2C', '1S', '7H', '9D' ];
+    dealer.shuffle = (deck) => {};
+    game = lucky21Constructor(deck, dealer);
+    game.guessOver21(game);
+    expect(game.getCardValue(game)).toEqual(11);
+});
 
+test('should return undifined when value doesnt exceed 21', () => {
+    edeck = [ '2C', '2S', '7H', '9D' ];
+    dealer.shuffle = (deck) => {};
+    game = lucky21Constructor(deck, dealer);
+    game.guessOver21(game);
+    expect(game.getCardValue(game)).toEqual(undefined);
+});
