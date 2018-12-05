@@ -119,12 +119,12 @@ test('should return 10 when value exceeds 21', () => {
     expect(game.getCardValue(game)).toEqual(10);
 });
 
-test('should return 11 when value exceeds 21 and card is ace', () => {
+test('should return 1 when guess over and card is ace', () => {
     deck = [ '02C', '01S', '07H', '09D' ];
     dealer.shuffle = (deck) => {};
     game = lucky21Constructor(deck, dealer);
     game.guessOver21(game);
-    expect(game.getCardValue(game)).toEqual(11);
+    expect(game.getCardValue(game)).toEqual(1);
 });
 
 test('should return undifined when value doesnt exceed 21', () => {
@@ -230,11 +230,11 @@ test('that game is not over when player guesses under and total is under 21', ()
     expect(game.isGameOver(game)).toEqual(false);
 });
 
-/*test('that player loses when guess over and hits ace', () => {
+test('that player loses when guess over and hits ace', () => {
     deck = [ '01C', '06H', '03C', '08D' ];
     dealer.shuffle = (deck) => {};
     game = lucky21Constructor(deck, dealer);
     game.guess21OrUnder(game);
     game.guessOver21(game);
     expect(game.playerWon(game)).toEqual(false);
-});*/
+});

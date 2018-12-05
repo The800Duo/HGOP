@@ -63,12 +63,13 @@ module.exports = (deck, dealer) => {
                     cardValue = 10;
                 }
                 if(ace(currCard)) {
-                    cardValue = 11;
+                    if(game.getCardsValue(game) > 10) {
+                        cardValue = 1;
+                    }else {
+                        cardValue = 11;                              
+                    }
                 }
-                let currTotal = game.getCardsValue(game) + cardValue;
-                if(currTotal > 21) {
-                    return cardValue;
-                }
+                return cardValue;
             }
             return game.state.card;
         },
