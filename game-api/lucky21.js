@@ -51,7 +51,6 @@ module.exports = (deck, dealer) => {
             if(game.state.card) {
                 let currCard = game.state.card.slice(0,-1);
                 let cardValue = Number(currCard);
-                console.log(currCard);
                 if(royal(currCard)) {
                     cardValue = 10;
                 }
@@ -67,7 +66,7 @@ module.exports = (deck, dealer) => {
         },
         // The cards value + the card value if it exits (integer).
         getTotal: (game) => {
-            //TODO
+            return (game.state.card) ? game.getCardValue(game) + game.getCardsValue(game) : game.getCardsValue(game);
         },
         // The player's cards (array of strings).
         getCards: (game) => {
