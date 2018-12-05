@@ -25,7 +25,13 @@ module.exports = (deck, dealer) => {
         },
         // Has the player won (true or false).
         playerWon: (game) => {
-            // TODO
+            if(game.state.card && game.getTotal(game) > 21) {
+                return true;
+            }else if(!game.state.card && game.getTotal(game) === 21){
+                return true;
+            }else {
+                return false;
+            }
         },
         // The highest score the cards can yield without going over 21 (integer).
         getCardsValue: (game) => {
@@ -51,7 +57,6 @@ module.exports = (deck, dealer) => {
             if(game.state.card) {
                 let currCard = game.state.card.slice(0,-1);
                 let cardValue = Number(currCard);
-                console.log(currCard);
                 if(royal(currCard)) {
                     cardValue = 10;
                 }
@@ -67,7 +72,7 @@ module.exports = (deck, dealer) => {
         },
         // The cards value + the card value if it exits (integer).
         getTotal: (game) => {
-            //TODO
+            return (game.state.card) ? game.getCardValue(game) + game.getCardsValue(game) : game.getCardsValue(game);
         },
         // The player's cards (array of strings).
         getCards: (game) => {
