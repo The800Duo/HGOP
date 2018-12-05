@@ -17,6 +17,8 @@
     "testRegex": "(unit-test)\\.js?$"
   },
   "devDependencies": {
+    "eslint": "^5.9.0",
+    "eslint-config-google": "^0.11.0",
     "jest": "^23.6.0"
   }
 }
