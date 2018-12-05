@@ -181,4 +181,20 @@ test('that a player loses when he guesses over and total hits 21', () => {
     game = lucky21Constructor(deck, dealer);
     game.guessOver21(game);
     expect(game.playerWon(game)).toEqual(false);
-})
+});
+
+test('that a player loses when he guesses over and total does not exceeds 21', () => {
+    deck = [ '04H', '12H', '04S' ];
+    dealer.shuffle = (deck) => {};
+    game = lucky21Constructor(deck, dealer);
+    game.guessOver21(game);
+    expect(game.playerWon(game)).toEqual(false);
+});
+
+test('that a player guesses under and total exceeds 21', () => {
+    deck = [ '04H', '12H', '13S' ];
+    dealer.shuffle = (deck) => {};
+    game = lucky21Constructor(deck, dealer);
+    game.guess21OrUnder(game);
+    expect(game.playerWon(game)).toEqual(false);
+});
