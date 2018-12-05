@@ -144,10 +144,41 @@ test('that a total value is correct when next card is undefined', () => {
 });
 
 test('that a total value is correct when next card is 10C', () => {
-  deck = [ '10C', '02H', '07H', '09H' ];
-  dealer.shuffle = (deck) => {};
-  game = lucky21Constructor(deck, dealer);
-  game.guess21OrUnder(game);
-  game.guessOver21(game);
-  expect(game.getTotal(game)).toEqual(28);
+    deck = [ '10C', '02H', '07H', '09H' ];
+    dealer.shuffle = (deck) => {};
+    game = lucky21Constructor(deck, dealer);
+    game.guess21OrUnder(game);
+    game.guessOver21(game);
+    expect(game.getTotal(game)).toEqual(28);
 });
+
+test('that a player wins if he starts with 21', () => {
+    deck = [ '01H', '13H' ];
+    dealer.shuffle = (deck) => {};
+    game = lucky21Constructor(deck, dealer);
+    expect(game.playerWon(game)).toEqual(true);
+});
+
+test('that a player wins if he hits 21 when guessunder', () => {
+    deck = [ '04H', '12H', '07S' ];
+    dealer.shuffle = (deck) => {};
+    game = lucky21Constructor(deck, dealer);
+    game.guess21OrUnder(game);
+    expect(game.playerWon(game)).toEqual(true);
+});
+
+test('that a player wins if he guesses over when total exceeds 21', () => {
+    deck = [ '04H', '12H', '08S' ];
+    dealer.shuffle = (deck) => {};
+    game = lucky21Constructor(deck, dealer);
+    game.guessOver21(game);
+    expect(game.playerWon(game)).toEqual(true);
+});
+
+test('that a player loses when he guesses over and total hits 21', () => {
+    deck = [ '04H', '12H', '07S' ];
+    dealer.shuffle = (deck) => {};
+    game = lucky21Constructor(deck, dealer);
+    game.guessOver21(game);
+    expect(game.playerWon(game)).toEqual(false);
+})
