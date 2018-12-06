@@ -7,13 +7,12 @@ node {
     }
 
     stage("Setup") {
-        sh "cd game-api/"
-        sh "npm install"
+        sh "cd game-api/ && npm install"
+
     }
 
     stage("Eslint") {
-        sh "cd game-api/"
-        sh "npm run eslint"
+        sh "cd game-api/ && npm run eslint"
     }
 
     stage("Build") {
