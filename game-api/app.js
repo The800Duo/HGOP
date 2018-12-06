@@ -1,7 +1,7 @@
 const express = require('express');
 const database = require('./database.js');
 
-var app = express();
+const app = express();
 
 app.get('/status', (req, res) => {
   res.statusCode = 200;

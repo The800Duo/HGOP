@@ -1,3 +1,5 @@
+/* eslint-disable no-irregular-whitespace */
+
 const deckConstructor = require('./deck.js');
 const dealerConstructor = require('./dealer.js');
 const lucky21Constructor = require('./lucky21.js');
