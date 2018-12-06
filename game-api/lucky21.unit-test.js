@@ -100,6 +100,8 @@ test('that a edge case of all aces returns 14', () => {
 });
 
 test('Test that game is not over', () => {
+  deck = ['04C', '03S', '02H', '01D'];
+  game = lucky21Constructor(deck, dealer);
   expect(game.isGameOver(game)).toEqual(false);
 });
 
