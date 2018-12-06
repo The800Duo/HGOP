@@ -20,5 +20,9 @@ node {
         sh "./scripts/docker_push.sh ${git.GIT_COMMIT}"
     }
 
+    stage("Tests") {
+        sh "cd game-api/ && npm run test:unit"
+    }
+
     
 }
