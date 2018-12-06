@@ -66,6 +66,18 @@ resource "aws_instance" "game_server" {
       private_key = "${file("~/.aws/GameKeyPair.pem")}"
     }
   }
+  # Copies the compose file to the game server.
+  # Now the instance can run the script.
+    provisioner "file" {
+    source      = "scripts/docker_compose_up.sh"
+    destination = "/home/ubuntu/docker_compose_up.sh"
+
+    connection {
+      type        = "ssh"
+      user        = "ubuntu"
+      private_key = "${file("~/.aws/GameKeyPair.pem")}"
+    }
+  }
   # This is used to run commands on the instance we just created.
   # Terraform does this by SSHing into the instance and then executing the commands.
   # Since it can take time for the SSH agent on machine to start up we let Terraform
@@ -76,6 +88,7 @@ resource "aws_instance" "game_server" {
   provisioner "remote-exec" {
     inline = [
       "chmod +x /home/ubuntu/initialize_game_api_instance.sh",
+      "chmod +x /home/ubuntu/docker_compose_up.sh",
     ]
 
     connection {

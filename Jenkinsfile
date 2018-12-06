@@ -24,5 +24,7 @@ node {
         sh "cd game-api/ && npm run test:unit"
     }
 
+    build job: 'teploy', parameters: [[$class: 'StringParameterValue', name: 'GIT_COMMIT', value: "${git.GIT_COMMIT}"]]
+
     
 }
