@@ -12,7 +12,7 @@ node {
     }
 
     stage("Eslint") {
-        sh "cd game-api"
+        sh "cd game-api/"
         sh "npm run eslint"
     }
 
