@@ -3,6 +3,7 @@
 const deckConstructor = require('./deck.js');
 const dealerConstructor = require('./dealer.js');
 const lucky21Constructor = require('./lucky21.js');
+const randomConstructor = require('./random.js');
 
 let game;
 
