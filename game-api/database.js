@@ -47,7 +47,7 @@ function getClient() {
   });
 }
 
-var client = getClient();
+const client = getClient();
 setTimeout(() => client.connect((err) => {
   if (err) {
     console.log('failed to connect to postgres!');
