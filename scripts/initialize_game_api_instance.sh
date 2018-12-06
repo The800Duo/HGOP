@@ -28,6 +28,3 @@ if [[ ! -f docker-compose.yml ]] ; then
     echo "docker-compose.yml is not present, exiting.."
     exit 1
 fi
-
-echo 'Starting the API'
-sudo docker-compose up -d
