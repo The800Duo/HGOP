@@ -1,8 +1,8 @@
-let deckConstructor = require('./deck.js');
+const deckConstructor = require('./deck.js');
 
 describe('Testing if deck is correct', () => {
-	test('that a deck has 52 cards', () => {
-		let deck = deckConstructor();
-		expect(deck.length).toEqual(52);
-	});
+  test('that a deck has 52 cards', () => {
+    const deck = deckConstructor();
+    expect(deck.length).toEqual(52);
+  });
 });
