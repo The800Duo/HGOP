@@ -100,12 +100,12 @@ module.exports = (context) => {
       game.state.card = dealer.draw(game.state.deck);
     },
     getState: (game) => {
-			return {
-				cards: game.getCards(game),
-				card: game.getCard(game),
-				finished: game.isGameOver(game),
-			};
-		}
+      return {
+        cards: game.getCards(game),
+        card: game.getCard(game),
+        finished: game.isGameOver(game),
+      };
+    },
   };
 };
 
