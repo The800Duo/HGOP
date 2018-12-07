@@ -7,7 +7,7 @@ const dealer = require('./dealer.js');
 const server = require('./server.js');
 const inject = require('./inject.js');
 const random = require('./random.js');
-const config = require('./config.js')
+const config = require('./config.js');
 
 module.exports = {
     newContext: () => {
