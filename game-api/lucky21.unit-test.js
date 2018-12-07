@@ -7,18 +7,18 @@ const randomConstructor = require('./random.js');
 
 currentDependencies = () => {
   return {
-        "deck": deckConstructor,
-        "dealer": dealerConstructor,
-        "random": randomConstructor()
+    'deck': deckConstructor,
+    'dealer': dealerConstructor,
+    'random': randomConstructor(),
   };
 };
 
 const noShuffleConstructor = () => {
   return {
-    "shuffle": () => { }, // TODO SHUFFLE
-    "draw": (deck) => {
+    'shuffle': () => { }, // TODO SHUFFLE
+    'draw': (deck) => {
       return deck.pop();
-    }
+    },
   };
 };
 
@@ -26,7 +26,7 @@ let dependencies = currentDependencies();
 
 const context = (name) => {
   return dependencies[name];
-}
+};
 
 describe('Initialize game tests', () => {
   let game;
@@ -49,11 +49,11 @@ describe('Card is drawn', () => {
   beforeEach(() => {
     currentDependencies = () => {
       return {
-        "deck": () => [
+        'deck': () => [
           '05C', '01D', '09S', '10H',
         ],
-        dealer: noShuffleConstructor
-      }
+        'dealer': noShuffleConstructor,
+      };
     };
     dependencies = currentDependencies();
     game = lucky21Constructor(context);
@@ -72,11 +72,11 @@ describe('Get correct value of current hand', () => {
   beforeEach(() => {
     currentDependencies = () => {
       return {
-        "deck": () => [
+        'deck': () => [
           '05C', '02D', '05H', '10H',
         ],
-        dealer: noShuffleConstructor
-      }
+        'dealer': noShuffleConstructor,
+      };
     };
     dependencies = currentDependencies();
     game = lucky21Constructor(context);
@@ -90,7 +90,7 @@ describe('Get correct value of current hand', () => {
   test('that players hand is 10H, 5H, 2D', () => {
     game.state.cards = ['10H', '05H', '02D'];
     expect(game.getCards(game)).toEqual(['10H', '05H', '02D']);
-  }); 
+  });
 });
 
 describe('get correct value of next card', () => {
@@ -98,11 +98,11 @@ describe('get correct value of next card', () => {
   beforeEach(() => {
     currentDependencies = () => {
       return {
-        "deck": () => [
-          '07C', '03S', '01H', '04D'
+        'deck': () => [
+          '07C', '03S', '01H', '04D',
         ],
-        dealer: noShuffleConstructor
-      }
+        'dealer': noShuffleConstructor,
+      };
     };
     dependencies = currentDependencies();
     game = lucky21Constructor(context);
@@ -122,18 +122,18 @@ describe('get correct value of next card', () => {
     game.guessOver21(game);
     expect(game.getCard(game)).toEqual('03S');
   });
-})
+});
 
 describe('Returns the correct value of cards', () => {
   let game;
   beforeEach(() => {
     currentDependencies = () => {
       return {
-        "deck": () => [
-          '02S', '05H', '01H', '01S', '01D', '01C', '13H', '04D'
+        'deck': () => [
+          '02S', '05H', '01H', '01S', '01D', '01C', '13H', '04D',
         ],
-        dealer: noShuffleConstructor
-      }
+        'dealer': noShuffleConstructor,
+      };
     };
     dependencies = currentDependencies();
     game = lucky21Constructor(context);
@@ -172,12 +172,12 @@ describe('Test game over function', () => {
   beforeEach(() => {
     currentDependencies = () => {
       return {
-        "deck": () => [
-          '04H', '02C', '03S', '10H', '11C', '12S', '01C', '04C', '02H', '01D'
+        'deck': () => [
+          '04H', '02C', '03S', '10H', '11C', '12S', '01C', '04C', '02H', '01D',
         ],
-        dealer: dealerConstructor,
-        random: randomConstructor()
-      }
+        'dealer': dealerConstructor,
+        'random': randomConstructor(),
+      };
     };
     dependencies = currentDependencies();
     game = lucky21Constructor(context);
@@ -188,22 +188,22 @@ describe('Test game over function', () => {
     game.guessOver21(game);
     expect(game.isGameOver(game)).toEqual(true);
   });
-  
+
   test('that game is over when player guesses under and total exceeds 21', () => {
     game.state.cards = ['11C', '12S'];
     game.state.card = '10H';
     game.guess21OrUnder(game);
     expect(game.isGameOver(game)).toEqual(true);
   });
-  
+
   test('that game is over when player hits 21 in 2 cards', () => {
     game.state.cards = ['01C', '12S'];
     expect(game.isGameOver(game)).toEqual(true);
   });
 
   test('Test that game is not over', () => {
-  game.state.cards = ['04C', '03S', '02H', '01D'];
-  expect(game.isGameOver(game)).toEqual(false);
+    game.state.cards = ['04C', '03S', '02H', '01D'];
+    expect(game.isGameOver(game)).toEqual(false);
   });
 
   test('that game is not over when player guesses under and total is under 21', () => {
@@ -218,45 +218,45 @@ describe('get correct value of next card', () => {
   beforeEach(() => {
     currentDependencies = () => {
       return {
-        "deck": () => [
-          '01S', '11S', '02S', '07H', '09D' 
+        'deck': () => [
+          '01S', '11S', '02S', '07H', '09D',
         ],
-        dealer: noShuffleConstructor
-      }
+        'dealer': noShuffleConstructor,
+      };
     };
     dependencies = currentDependencies();
     game = lucky21Constructor(context);
   });
 
   test('should return 10 when value exceeds 21', () => {
-    game.state.cards = [ '07H', '09D' ];
-    game.state.card = '11S'
+    game.state.cards = ['07H', '09D'];
+    game.state.card = '11S';
     expect(game.getCardValue(game)).toEqual(10);
   });
 
   test('should return 1 when guess over and card is ace', () => {
-    game.state.cards = [ '07H', '09D' ];
-    game.state.card = '01S'
+    game.state.cards = ['07H', '09D'];
+    game.state.card = '01S';
     expect(game.getCardValue(game)).toEqual(1);
   });
 
   test('should return undifined when value doesnt exceed 21', () => {
-    game.state.cards = [ '07H', '09D'];
+    game.state.cards = ['07H', '09D'];
     game.guess21OrUnder(game);
     expect(game.getCardValue(game)).toEqual(undefined);
   });
-})
+});
 
 describe('Get the correct total value of cards', () => {
   let game;
   beforeEach(() => {
     currentDependencies = () => {
       return {
-        "deck": () => [
-          '10C', '02H', '07H', '09H'
+        'deck': () => [
+          '10C', '02H', '07H', '09H',
         ],
-        dealer: noShuffleConstructor
-      }
+        'dealer': noShuffleConstructor,
+      };
     };
     dependencies = currentDependencies();
     game = lucky21Constructor(context);
@@ -279,11 +279,11 @@ describe('Player wins or loses', () => {
   beforeEach(() => {
     currentDependencies = () => {
       return {
-        "deck": () => [
-          '01C', '06H', '03C', '08D', '13S', '04S', '08S', '13H', '01H', '04H', '12H', '07S'
+        'deck': () => [
+          '01C', '06H', '03C', '08D', '13S', '04S', '08S', '13H', '01H', '04H', '12H', '07S',
         ],
-        dealer: noShuffleConstructor
-      }
+        'dealer': noShuffleConstructor,
+      };
     };
     dependencies = currentDependencies();
     game = lucky21Constructor(context);
@@ -293,40 +293,40 @@ describe('Player wins or loses', () => {
     game.state.cards = ['01H', '13H'];
     expect(game.playerWon(game)).toEqual(true);
   });
-  
+
   test('that a player wins if he hits 21 when guessunder', () => {
     game.guess21OrUnder(game);
     expect(game.playerWon(game)).toEqual(true);
   });
-  
+
   test('that a player wins if he guesses over when total exceeds 21', () => {
     game.state.cards = ['12H', '08S'];
     game.guessOver21(game);
     expect(game.playerWon(game)).toEqual(true);
   });
-  
+
   test('that a player loses when he guesses over and total hits 21', () => {
     game.guessOver21(game);
     expect(game.playerWon(game)).toEqual(false);
   });
-  
+
   test('that a player loses when he guesses over and total does not exceeds 21', () => {
     game.state.cards = ['12H', '04S'];
     game.guessOver21(game);
     expect(game.playerWon(game)).toEqual(false);
   });
-  
+
   test('that a player guesses under and total exceeds 21', () => {
     game.state.cards = ['12H', '13S'];
     game.guess21OrUnder(game);
     expect(game.playerWon(game)).toEqual(false);
   });
-  
+
   test('that player loses when guess over and hits ace', () => {
     game.state.cards = ['03C', '08D'];
     game.guess21OrUnder(game);
     game.guessOver21(game);
     expect(game.playerWon(game)).toEqual(false);
   });
-})
+});
 
