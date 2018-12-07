@@ -5,10 +5,10 @@ services:
     ports:
     - '3000:3000'
     depends_on:
-    - item_db_container
+    - my_postgres_container
     environment:
       PORT: 3000
-      POSTGRES_DB: 'item_db_container'
+      POSTGRES_DB: 'my_postgres_database'
       POSTGRES_USER: 'my_postgres_user'
       POSTGRES_PASSWORD: 'my_postgres_password'
   my_postgres_container:
