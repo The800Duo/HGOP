@@ -55,18 +55,72 @@ module.exports = function(context) {
     },
     // Should call onSuccess with integer.
     getTotalNumberOfGames: (onSuccess, onError) => {
-      onSuccess(0);
-      // TODO week 3
+      const client = getCLient();
+      client.connect((err) => {
+          if(err) {
+            onError(err);
+            client.end();
+          }
+          else {
+            const query = {
+              text: `SELECT COUNT(*) FROM History`
+            }
+          };
+          client.query(query, (err) => {
+            if (err) {
+              onError();
+            } else {
+              onSuccess(res.rows[0].count);
+            }
+            client.end();
+          })
+      });
     },
     // Should call onSuccess with integer.
     getTotalNumberOfWins: (onSuccess, onError) => {
-      onSuccess(0);
-      // TODO week 3
+      const client = getCLient();
+      client.connect((err) => {
+          if(err) {
+            onError(err);
+            client.end();
+          }
+          else {
+            const query = {
+              text: `SELECT COUNT(*) FROM History WHERE Won = TRUE`
+            }
+          };
+          client.query(query, (err) => {
+            if (err) {
+              onError();
+            } else {
+              onSuccess(res.rows[0].count);
+            }
+            client.end();
+          })
+      });
     },
     // Should call onSuccess with integer.
     getTotalNumberOf21: (onSuccess, onError) => {
-      onSuccess(0);
-      // TODO week 3
+      const client = getCLient();
+      client.connect((err) => {
+          if(err) {
+            onError(err);
+            client.end();
+          }
+          else {
+            const query = {
+              text: `SELECT COUNT(*) FROM History WHERE Score = 21`
+            }
+          };
+          client.query(query, (err) => {
+            if (err) {
+              onError();
+            } else {
+              onSuccess(res.rows[0].count);
+            }
+            client.end();
+          })
+      });
     },
   };
-};
+}
