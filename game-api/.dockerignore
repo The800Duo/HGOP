@@ -1,3 +1,4 @@
 #dockerignore file what is not needed in image
 ./*.unit-test.js
 ./node_modules
+./coverage
