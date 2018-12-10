@@ -1,3 +1,8 @@
+# Top of file
+variable "environment" {
+  type = "string"
+}
+
 # Sets up the credentials for our aws provider with correct region. 
 # Now Terraform can connect to our aws instance.
 provider "aws" {
@@ -8,7 +13,7 @@ provider "aws" {
 # Declares the aws security groups as GameSecurityGroup(our group). 
 # Opens port for traffic in and out.
 resource "aws_security_group" "game_security_group" {
-  name   = "GameSecurityGroup"
+  name   = "GameSecurityGroup_${var.environment}"
 
   ingress {
     from_port   = 22
@@ -40,7 +45,7 @@ resource "aws_instance" "game_server" {
   key_name               = "GameKeyPair"
   vpc_security_group_ids = ["${aws_security_group.game_security_group.id}"]
   tags {
-    Name = "GameServer"
+    Name = "GameServer_${var.environment}"
   }
   # Copies the initialize game script from the local machine to the aws instance authorized by our keypair.
   # Now the instance can run the script.
