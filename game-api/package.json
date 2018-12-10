@@ -5,8 +5,10 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "test:unit": "jest --coverage",
+    "test:unit": "jest --config jest-unit-config.js --coverage",
+    "test:api": "jest --config jest-api-config.js",
     "eslint": "node ./node_modules/eslint/bin/eslint.js ./"
+    
   },
   "author": "",
   "license": "ISC",
@@ -14,12 +16,11 @@
     "express": "^4.16.2",
     "pg": "^7.6.1"
   },
-  "jest": {
-    "testRegex": "(unit-test)\\.js?$"
-  },
+
   "devDependencies": {
     "eslint": "^5.9.0",
     "eslint-config-google": "^0.11.0",
-    "jest": "^23.6.0"
+    "jest": "^23.6.0",
+    "request": "^2.88.0"
   }
 }
