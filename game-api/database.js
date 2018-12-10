@@ -13,21 +13,21 @@ module.exports = function(context) {
   }
 
   setTimeout(() => {
-    let client = getClient();
+    const client = getClient();
     client.connect((err) => {
-        if (err) {
-            console.log('failed to connect to postgres!');
-        } else {
-            console.log('successfully connected to postgres!');
-            client.query('CREATE TABLE IF NOT EXISTS GameResult (ID SERIAL PRIMARY KEY, Won BOOL NOT NULL, Score INT NOT NULL, Total INT NOT NULL, InsertDate TIMESTAMP NOT NULL);', (err) => {
-                if (err) {
-                    console.log('error creating game result table!')
-                } else {
-                    console.log('successfully created game result table!')
-                }
-                client.end();
-            });
-        }
+      if (err) {
+        console.log('failed to connect to postgres!');
+      } else {
+        console.log('successfully connected to postgres!');
+        client.query('CREATE TABLE IF NOT EXISTS GameResult (ID SERIAL PRIMARY KEY, Won BOOL NOT NULL, Score INT NOT NULL, Total INT NOT NULL, InsertDate TIMESTAMP NOT NULL);', (err) => {
+          if (err) {
+            console.log('error creating game result table!');
+          } else {
+            console.log('successfully created game result table!');
+          }
+          client.end();
+        });
+      }
     });
   }, 10000);
 
