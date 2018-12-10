@@ -57,70 +57,70 @@ module.exports = function(context) {
     getTotalNumberOfGames: (onSuccess, onError) => {
       const client = getCLient();
       client.connect((err) => {
-          if(err) {
-            onError(err);
-            client.end();
-          }
-          else {
-            const query = {
-              text: `SELECT COUNT(*) FROM History`
-            }
+        if (err) {
+          onError(err);
+          client.end();
+        } else {
+          const query = {
+            text: `SELECT COUNT(*) FROM History;`,
           };
-          client.query(query, (err) => {
+          client.query(query, (err, res) => {
             if (err) {
               onError();
             } else {
               onSuccess(res.rows[0].count);
             }
             client.end();
-          })
+          });
+        }
       });
+      return;
     },
     // Should call onSuccess with integer.
     getTotalNumberOfWins: (onSuccess, onError) => {
       const client = getCLient();
       client.connect((err) => {
-          if(err) {
-            onError(err);
-            client.end();
-          }
-          else {
-            const query = {
-              text: `SELECT COUNT(*) FROM History WHERE Won = TRUE`
-            }
+        if (err) {
+          onError(err);
+          client.end();
+        } else {
+          const query = {
+            text: `SELECT COUNT(*) FROM History WHERE Won = true;`,
           };
-          client.query(query, (err) => {
+          client.query(query, (err, res) => {
             if (err) {
               onError();
             } else {
               onSuccess(res.rows[0].count);
             }
             client.end();
-          })
+          });
+        }
       });
+      return;
     },
     // Should call onSuccess with integer.
     getTotalNumberOf21: (onSuccess, onError) => {
       const client = getCLient();
       client.connect((err) => {
-          if(err) {
-            onError(err);
-            client.end();
-          }
-          else {
-            const query = {
-              text: `SELECT COUNT(*) FROM History WHERE Score = 21`
-            }
+        if (err) {
+          onError(err);
+          client.end();
+        } else {
+          const query = {
+            text: `SELECT COUNT(*) FROM History WHERE Score = 21;`,
           };
-          client.query(query, (err) => {
+          client.query(query, (err, res) => {
             if (err) {
               onError();
             } else {
               onSuccess(res.rows[0].count);
             }
             client.end();
-          })
+          });
+        }
       });
+      return;
     },
   };
-}
+};
