@@ -32,6 +32,7 @@ node {
             failingTarget: [methodCoverage: 0, conditionalCoverage: 0, statementCoverage: 0]
         ])
     }
+    build job: 'apiTest', parameters: [[$class: 'StringParameterValue', name: 'GIT_COMMIT', value: "${git.GIT_COMMIT}"]]
 
     build job: 'teploy', parameters: [[$class: 'StringParameterValue', name: 'GIT_COMMIT', value: "${git.GIT_COMMIT}"]]
 
