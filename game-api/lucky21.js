@@ -103,7 +103,10 @@ module.exports = (context) => {
       return {
         cards: game.getCards(game),
         card: game.getCard(game),
-        finished: game.isGameOver(game),
+        gameOver: game.isGameOver(game),
+        total: game.getTotal(game),
+        cardValue: game.getCardValue(game),
+        cardsValue: game.getCardsValue(game),
       };
     },
   };
