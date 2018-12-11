@@ -15,40 +15,33 @@ module.exports = function(context) {
 
   let game = undefined;
 
-  // Starts a new game.
-  app.post('/stats', (req, res) => {
+  // Gets game statistics
+  app.get('/stats', (req, res) => {
     database.getTotalNumberOfGames((totalNumberOfGames) => {
-      database.getTotalNumberOfWins((totalNumberOfWins) => {
-        database.getTotalNumberOf21((totalNumberOf21) => {
-          // Week 3
-          // TODO Explain why we put each consecutive call inside the onSuccess callback of the
-          // previous database call, instead of just placing them next to each other.
-          // E.g.
-          // database.call1(...);
-          // database.call2(...);
-          // database.call3(...);
-          res.statusCode = 200;
-          res.send({
-            totalNumberOfGames: totalNumberOfGames,
-            totalNumberOfWins: totalNumberOfWins,
-            totalNumberOf21: totalNumberOf21,
-          });
+        database.getTotalNumberOfWins((totalNumberOfWins) => {
+            database.getTotalNumberOf21((totalNumberOf21) => {
+                res.statusCode = 200;
+                res.send({
+                    totalNumberOfGames: totalNumberOfGames,
+                    totalNumberOfWins: totalNumberOfWins,
+                    totalNumberOf21: totalNumberOf21,
+                });
+            }, (err) => {
+                console.log('Failed to get total number of 21, Error:' + JSON.stringify(err));
+                res.statusCode = 500;
+                res.send();
+            });
         }, (err) => {
-          console.log('Failed to get total number of 21, Error:' + JSON.stringify(err));
-          res.statusCode = 500;
-          res.send();
+            console.log('Failed to get total number of wins, Error:' + JSON.stringify(err));
+            res.statusCode = 500;
+            res.send();
         });
-      }, (err) => {
-        console.log('Failed to get total number of wins, Error:' + JSON.stringify(err));
+    }, (err) => {
+        console.log('Failed to get total number of games, Error:' + JSON.stringify(err));
         res.statusCode = 500;
         res.send();
-      });
-    }, (err) => {
-      console.log('Failed to get total number of games, Error:' + JSON.stringify(err));
-      res.statusCode = 500;
-      res.send();
     });
-  });
+});
 
   // Starts a new game.
   app.post('/start', (req, res) => {
