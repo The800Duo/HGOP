@@ -4,125 +4,117 @@ module.exports = function(context) {
   const config = configConstructor(context);
 
   function getClient() {
-      return new Client({
-          host: config.pgHost,
-          user: config.pgUser,
-          password: config.pgPassword,
-          database: config.pgDatabase,
-      });
+    return new Client({
+      host: config.pgHost,
+      user: config.pgUser,
+      password: config.pgPassword,
+      database: config.pgDatabase,
+    });
   }
 
-  let client = getClient();
+  const client = getClient();
   setTimeout(() =>
-      client.connect((err) => {
-          if (err) {
-            console.log('failed to connect to postgres!');
-          }
-          else{
-            console.log('successfully connected to postgres!');
-          }
-  }), 2000);
-  
+    client.connect((err) => {
+      if (err) {
+        console.log('failed to connect to postgres!');
+      } else {
+        console.log('successfully connected to postgres!');
+      }
+    }), 2000);
+
   return {
 
-      insertResult: (won, score, total, onSuccess, onError) => {
-          let client = getClient();
-          client.connect((err) => {
-              if (err) {
-                  onError(err);
-                  client.end();
-              } else {
-                  const query = {
-                      text: 'INSERT INTO "GameResult"("Won", "Score", "Total", "InsertDate") VALUES($1, $2, $3, CURRENT_TIMESTAMP);',
-                      values: [won, score, total],
-                  };
-                  client.query(query, (err) => {
-                      if (err) {
-                        onError();
-                      }
-                      else {
-                        onSuccess();
-                      }
-                      client.end();
-                  });
-              }
+    insertResult: (won, score, total, onSuccess, onError) => {
+      const client = getClient();
+      client.connect((err) => {
+        if (err) {
+          onError(err);
+          client.end();
+        } else {
+          const query = {
+            text: 'INSERT INTO "GameResult"("Won", "Score", "Total", "InsertDate") VALUES($1, $2, $3, CURRENT_TIMESTAMP);',
+            values: [won, score, total],
+          };
+          client.query(query, (err) => {
+            if (err) {
+              onError();
+            } else {
+              onSuccess();
+            }
+            client.end();
           });
-          return;
-      },
-
-      getTotalNumberOfGames: (onSuccess, onError) => {
-        let client = getClient();
-        client.connect((err) => {
-            if (err) {
-                onError(err);
-                client.end();
-  
-            } else {
-                const query = {
-                    text: `SELECT COUNT(*) FROM "GameResult";`
-                };
-                client.query(query, (err, res) => {
-                    if (err) {
-                      onError();
-                    }
-                    else {
-                      onSuccess(res.rows[0].count);
-                    }
-                    client.end();
-                });
-            }
-        });
-        return;
+        }
+      });
+      return;
     },
 
-      getTotalNumberOfWins: (onSuccess, onError) => {
-        let client = getClient();
-        client.connect((err) => {
+    getTotalNumberOfGames: (onSuccess, onError) => {
+      const client = getClient();
+      client.connect((err) => {
+        if (err) {
+          onError(err);
+          client.end();
+        } else {
+          const query = {
+            text: `SELECT COUNT(*) FROM "GameResult";`,
+          };
+          client.query(query, (err, res) => {
             if (err) {
-                onError(err);
-                client.end();
-  
+              onError();
             } else {
-                const query = {
-                    text: `SELECT COUNT(*) FROM "GameResult" WHERE "Won"=true;`
-                };
-                client.query(query, (err, res) => {
-                  if (err) {
-                    onError();
-                  }
-                  else {
-                    onSuccess(res.rows[0].count);
-                  }
-                  client.end();
-              });
+              onSuccess(res.rows[0].count);
             }
-        });
-        return;
+            client.end();
+          });
+        }
+      });
+      return;
     },
 
-      getTotalNumberOf21: (onSuccess, onError) => {
-        let client = getClient();
-        client.connect((err) => {
+    getTotalNumberOfWins: (onSuccess, onError) => {
+      const client = getClient();
+      client.connect((err) => {
+        if (err) {
+          onError(err);
+          client.end();
+        } else {
+          const query = {
+            text: `SELECT COUNT(*) FROM "GameResult" WHERE "Won"=true;`,
+          };
+          client.query(query, (err, res) => {
             if (err) {
-                onError(err);
-                client.end();
-  
+              onError();
             } else {
-                const query = {
-                    text: `SELECT COUNT(*) FROM "GameResult" WHERE "Score"=21;`
-                };
-                client.query(query, (err, res) => {
-                  if (err) {
-                    onError();
-                  }
-                  else {
-                    onSuccess(res.rows[0].count);
-                  }
-                  client.end();
-              });
+              onSuccess(res.rows[0].count);
             }
-        });
-        return;
+            client.end();
+          });
+        }
+      });
+      return;
+    },
+
+    getTotalNumberOf21: (onSuccess, onError) => {
+      const client = getClient();
+      client.connect((err) => {
+        if (err) {
+          onError(err);
+          client.end();
+        } else {
+          const query = {
+            text: `SELECT COUNT(*) FROM "GameResult" WHERE "Score"=21;`,
+          };
+          client.query(query, (err, res) => {
+            if (err) {
+              onError();
+            } else {
+              onSuccess(res.rows[0].count);
+            }
+            client.end();
+          });
+        }
+      });
+      return;
     },
   };
 };
