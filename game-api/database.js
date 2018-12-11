@@ -19,17 +19,9 @@ module.exports = function(context) {
         console.log('failed to connect to postgres!');
       } else {
         console.log('successfully connected to postgres!');
-        client.query('CREATE TABLE IF NOT EXISTS GameResult (ID SERIAL PRIMARY KEY, Won BOOL NOT NULL, Score INT NOT NULL, Total INT NOT NULL, InsertDate TIMESTAMP NOT NULL);', (err) => {
-          if (err) {
-            console.log('error creating game result table!');
-          } else {
-            console.log('successfully created game result table!');
-          }
-          client.end();
-        });
       }
     });
-  }, 10000);
+  }, 3000);
 
   return {
     insertResult: (won, score, total, onSuccess, onError) => {
@@ -40,7 +32,7 @@ module.exports = function(context) {
           client.end();
         } else {
           const query = {
-            text: 'INSERT INTO History(Won, Score, Total, InsertedDate) VALUES($1, $2, $3, CURRENT_TIMESTAMP);',
+            text: 'INSERT INTO "History"("Won", "Score", "Total", "InsertedDate") VALUES($1, $2, $3, CURRENT_TIMESTAMP);',
             values: [won, score, total],
           };
           client.query(query, (err) => {
@@ -64,7 +56,7 @@ module.exports = function(context) {
           client.end();
         } else {
           const query = {
-            text: `SELECT COUNT(*) FROM History;`,
+            text: `SELECT COUNT(*) FROM "History";`,
           };
           client.query(query, (err, res) => {
             if (err) {
@@ -87,7 +79,7 @@ module.exports = function(context) {
           client.end();
         } else {
           const query = {
-            text: `SELECT COUNT(*) FROM History WHERE Won = true;`,
+            text: `SELECT COUNT(*) FROM "History" WHERE "Won" = true;`,
           };
           client.query(query, (err, res) => {
             if (err) {
@@ -110,7 +102,7 @@ module.exports = function(context) {
           client.end();
         } else {
           const query = {
-            text: `SELECT COUNT(*) FROM History WHERE Score = 21;`,
+            text: `SELECT COUNT(*) FROM "History" WHERE "Score" = 21;`,
           };
           client.query(query, (err, res) => {
             if (err) {
