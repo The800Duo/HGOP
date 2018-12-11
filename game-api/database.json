@@ -1,7 +1,7 @@
 {
   "pg": {
     "driver": "pg",
-    "host": "my_database_container",
+    "host": "game_database_container",
     "database": "game_database",
     "user": "my_user",
     "password": "my_password",
