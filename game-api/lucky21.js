@@ -123,6 +123,6 @@ function ace(card) {
   }
   return false;
 }
-function forSorting(a ,b) {
+function forSorting(a, b) {
   return a < b;
 }

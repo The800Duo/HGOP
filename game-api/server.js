@@ -18,30 +18,30 @@ module.exports = function(context) {
   // Gets game statistics
   app.get('/stats', (req, res) => {
     database.getTotalNumberOfGames((totalNumberOfGames) => {
-        database.getTotalNumberOfWins((totalNumberOfWins) => {
-            database.getTotalNumberOf21((totalNumberOf21) => {
-                res.statusCode = 200;
-                res.send({
-                    totalNumberOfGames: totalNumberOfGames,
-                    totalNumberOfWins: totalNumberOfWins,
-                    totalNumberOf21: totalNumberOf21,
-                });
-            }, (err) => {
-                console.log('Failed to get total number of 21, Error:' + JSON.stringify(err));
-                res.statusCode = 500;
-                res.send();
-            });
+      database.getTotalNumberOfWins((totalNumberOfWins) => {
+        database.getTotalNumberOf21((totalNumberOf21) => {
+          res.statusCode = 200;
+          res.send({
+            totalNumberOfGames: totalNumberOfGames,
+            totalNumberOfWins: totalNumberOfWins,
+            totalNumberOf21: totalNumberOf21,
+          });
         }, (err) => {
-            console.log('Failed to get total number of wins, Error:' + JSON.stringify(err));
-            res.statusCode = 500;
-            res.send();
+          console.log('Failed to get total number of 21, Error:' + JSON.stringify(err));
+          res.statusCode = 500;
+          res.send();
         });
-    }, (err) => {
-        console.log('Failed to get total number of games, Error:' + JSON.stringify(err));
+      }, (err) => {
+        console.log('Failed to get total number of wins, Error:' + JSON.stringify(err));
         res.statusCode = 500;
         res.send();
+      });
+    }, (err) => {
+      console.log('Failed to get total number of games, Error:' + JSON.stringify(err));
+      res.statusCode = 500;
+      res.send();
     });
-});
+  });
 
   // Starts a new game.
   app.post('/start', (req, res) => {
