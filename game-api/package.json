@@ -8,7 +8,8 @@
     "test:unit": "jest --config jest-unit-config.js --coverage",
     "test:api": "jest --config jest-api-config.js",
     "test:capacity": "jest --config jest-capacity-config.js",
-    "eslint": "node ./node_modules/eslint/bin/eslint.js ./"
+    "eslint": "node ./node_modules/eslint/bin/eslint.js ./",
+    "migratedb:pg": "db-migrate --verbose --env pg --config ./database.json --migrations-dir ./migrations up"
   },
   "author": "",
   "license": "ISC",
