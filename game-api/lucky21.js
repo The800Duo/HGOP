@@ -41,9 +41,7 @@ module.exports = (context) => {
     // The highest score the cards can yield without going over 21 (integer).
     getCardsValue: (game) => {
       let value = 0;
-      game.state.cards.sort(function(a, b) {
-        return a-b;
-      });
+      game.state.cards.sort(forSorting);
       for (let i = 0; i < game.state.cards.length; i++) {
         const c = game.state.cards[i].slice(0, -1);
         if (royal(c)) {
@@ -124,4 +122,7 @@ function ace(card) {
     return true;
   }
   return false;
+}
+function forSorting(a ,b) {
+  return a < b;
 }
