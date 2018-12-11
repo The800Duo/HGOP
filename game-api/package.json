@@ -9,15 +9,14 @@
     "test:api": "jest --config jest-api-config.js",
     "test:capacity": "jest --config jest-capacity-config.js",
     "eslint": "node ./node_modules/eslint/bin/eslint.js ./"
-    
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "db-migrate": "^0.11.4",
     "express": "^4.16.2",
     "pg": "^7.6.1"
   },
-
   "devDependencies": {
     "eslint": "^5.9.0",
     "eslint-config-google": "^0.11.0",
