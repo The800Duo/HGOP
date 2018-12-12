@@ -9,9 +9,9 @@ module.exports = function(context) {
   const app = express();
 
   app.use((req, res, next) => {
-		res.header('Access-Control-Allow-Origin', "*");
-		next();
-	});
+    res.header('Access-Control-Allow-Origin', '*');
+    next();
+  });
 
   app.get('/status', (req, res) => {
     res.statusCode = 200;
