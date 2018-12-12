@@ -105,6 +105,7 @@ module.exports = (context) => {
         total: game.getTotal(game),
         cardValue: game.getCardValue(game),
         cardsValue: game.getCardsValue(game),
+        playerWon: game.playerWon(game),
       };
     },
   };
