@@ -1,22 +1,27 @@
 import axios from "axios";
+// TODO: Add correct api Url
 const apiUrl = `http://${ process.env.API_URL }:${ process.env.API_PORT }`;
 
 export const startGame = () => {
-  axios.post(`${apiUrl}/start`).then(res => 
-    getState()
-  );
+  // TODO: Call start game
+  return axios.post(`${apiUrl}/start`).then(res => {
+    return getState();
+  });
 };
 
 export const getState = () => {
-  axios.get(`${apiUrl}/state`);
+  // TODO: Get the state of the game
+  return axios.get(`${apiUrl}/state`);
 };
 
 export const guessOver21 = () => {
-  axios.post(`${apiUrl}/guessOver21`);
+  // TODO: Guess over 21
+  return axios.post(`${apiUrl}/guessOver21`);
 };
 
 export const guess21OrUnder = () => {
-  axios.post(`${apiUrl}/guess21OrUnder`);
+  // TODO: Guess 21 or under
+  return axios.post(`${apiUrl}/guess21OrUnder`);
 };
 
 // Helper function to convert cards format
