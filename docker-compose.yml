@@ -1,5 +1,16 @@
 version: '3'
 services:
+# Based on https://github.com/DataDog/docker-compose-example
+  dog_container:
+    image: datadog/agent:latest
+    environment:
+      - DD_API_KEY=5bdb06c9289aeb5ea13280f68bca994c
+      - DD_DOGSTATSD_NON_LOCAL_TRAFFIC=true
+      - DD_TAGS=env:${ENVIRONMENT}
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /proc/:/host/proc/:ro
+      - /sys/fs/cgroup:/host/sys/fs/cgroup:ro
   game_api:
     image: arnimegg/hgop:${GIT_COMMIT}
     ports:
