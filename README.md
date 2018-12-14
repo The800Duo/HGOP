@@ -12,3 +12,13 @@ http://ec2-54-87-171-20.compute-1.amazonaws.com:8080
 
 ### Link to our Github repository
 https://github.com/The800Duo/HGOP
+
+## WEEK 3
+###  Link to our Jenkins instance:
+http://ec2-54-87-171-20.compute-1.amazonaws.com:8080
+
+### Link to our Github repository
+https://github.com/The800Duo/HGOP
+
+### Public URL for DataDog Dashboard
+https://p.datadoghq.com/sb/7442f0f24-d2ec59a5a8d671ec3573822d8d185af0
