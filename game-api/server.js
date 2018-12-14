@@ -6,7 +6,7 @@ module.exports = function(context) {
   const config = configConstructor(context);
   const lucky21Constructor = context('lucky21');
   const statsDConstructor = context('statsD');
-	const statsD = statsDConstructor(context);
+  const statsD = statsDConstructor(context);
 
   const app = express();
 
@@ -65,26 +65,26 @@ module.exports = function(context) {
   });
 
   app.post('/start', (req, res) => {
-		if (game && game.isGameOver(game) == false) {
-			res.statusCode = 409;
-			res.send('There is already a game in progress');
-		} else {
-			game = lucky21Constructor(context);
-			res.statusCode = 201;
-			const msg = 'Game Started';
-			if (game && game.isGameOver(game) == true) {
-				const won = game.playerWon(game);
-				const score = game.getCardsValue(game);
-				const total = game.getTotal(game);
-				database.insertResult(won, score, total, () => {
-				}, (err) => {
-					console.log('Failed to insert game result, Error:' + JSON.stringify(err));
-				});
-			}
-			statsD.increment('games.started');
-			res.send(msg);
-		}
-	});
+    if (game && game.isGameOver(game) == false) {
+      res.statusCode = 409;
+      res.send('There is already a game in progress');
+    } else {
+      game = lucky21Constructor(context);
+      res.statusCode = 201;
+      const msg = 'Game Started';
+      if (game && game.isGameOver(game) == true) {
+        const won = game.playerWon(game);
+        const score = game.getCardsValue(game);
+        const total = game.getTotal(game);
+        database.insertResult(won, score, total, () => {
+        }, (err) => {
+          console.log('Failed to insert game result, Error:' + JSON.stringify(err));
+        });
+      }
+      statsD.increment('games.started');
+      res.send(msg);
+    }
+  });
 
   // Returns the player's board state.
   app.get('/state', (req, res) => {
