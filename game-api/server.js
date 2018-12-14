@@ -58,21 +58,10 @@ module.exports = function(context) {
       res.send('There is already a game in progress');
     } else {
       game = lucky21Constructor(context);
-      const msg = 'Game started';
-      res.statusCode = 201;
-      res.send(msg);
-    }
-  });
-
-  app.post('/start', (req, res) => {
-    if (game && game.isGameOver(game) == false) {
-      res.statusCode = 409;
-      res.send('There is already a game in progress');
-    } else {
-      game = lucky21Constructor(context);
       res.statusCode = 201;
       const msg = 'Game Started';
       if (game && game.isGameOver(game) == true) {
+        statsD.increment('games.won.with.21');
         const won = game.playerWon(game);
         const score = game.getCardsValue(game);
         const total = game.getTotal(game);
@@ -111,6 +100,12 @@ module.exports = function(context) {
           const won = game.playerWon(game);
           const score = game.getCardsValue(game);
           const total = game.getTotal(game);
+          if(score === 21) {
+            statsD.increment('games.won.with.21');
+          }
+          if(won === false) {
+            statsD.increment('games.lost');
+          }
           database.insertResult(won, score, total, () => {
             console.log('Game result inserted to database');
           }, (err) => {
@@ -140,6 +135,9 @@ module.exports = function(context) {
           const won = game.playerWon(game);
           const score = game.getCardsValue(game);
           const total = game.getTotal(game);
+          if(won === false) {
+            statsD.increment('games.lost');
+          }
           database.insertResult(won, score, total, () => {
             console.log('Game result inserted to database');
           }, (err) => {
