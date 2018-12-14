@@ -24,7 +24,7 @@ module.exports = {
       'random': random,
       'config': config,
       'hotshots': hotshots,
-      'statsD': statsD,
+      'statsD': statsD
     });
   },
 };
