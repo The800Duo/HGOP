@@ -100,10 +100,10 @@ module.exports = function(context) {
           const won = game.playerWon(game);
           const score = game.getCardsValue(game);
           const total = game.getTotal(game);
-          if(score === 21) {
+          if (score === 21) {
             statsD.increment('games.won.with.21');
           }
-          if(won === false) {
+          if (won === false) {
             statsD.increment('games.lost');
           }
           database.insertResult(won, score, total, () => {
@@ -135,7 +135,7 @@ module.exports = function(context) {
           const won = game.playerWon(game);
           const score = game.getCardsValue(game);
           const total = game.getTotal(game);
-          if(won === false) {
+          if (won === false) {
             statsD.increment('games.lost');
           }
           database.insertResult(won, score, total, () => {
